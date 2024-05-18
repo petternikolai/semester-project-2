@@ -53,3 +53,39 @@ section {
 :root {
   --header-height: 70px;
 }
+
+#profile-avatar img {
+  width: 35px;
+}
+
+.profile-container img {
+  width: 200px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.camera-icon-wrapper {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #a68a56;
+  color: black;
+  right: -200px;
+  top: 50px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.camera-icon-wrapper i {
+  font-size: 20px;
+}
+
+#avatarModal {
+  top: 100px;
+}

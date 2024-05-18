@@ -16,6 +16,7 @@
       src="/js/api/listings/listingsFunctions.js"
       defer
     ></script>
+    <script type="module" src="/js/api/header/loggedInUser.js" defer></script>
     <script
       src="https://kit.fontawesome.com/c4acae2378.js"
       crossorigin="anonymous"
@@ -33,7 +34,7 @@
             ><img src="/img/logo.svg" alt="Logo"
           /></a>
           <div class="d-flex align-items-center">
-            <div id="profile-avatar" class="default-avatar d-none bg-primary">
+            <div id="profile-avatar" class="default-avatar bg-primary">
               <a href="/profile/profile.html" class="text-black">
                 <i class="fa-light fa-user"></i>
               </a>
@@ -58,10 +59,17 @@
                 ></li
               >
               <li class="nav-item"
-                ><a class="nav-link" href="#">List an item</a></li
+                ><a class="logged-in nav-link d-none" href="#"
+                  >List an item</a
+                ></li
               >
               <li class="nav-item"
-                ><a class="nav-link text-danger d-none" href="#">Log out</a></li
+                ><a
+                  id="logout"
+                  class="logged-in nav-link text-danger d-none"
+                  href="#"
+                  >Log out</a
+                ></li
               >
             </ul>
             <form class="d-flex" role="search" id="search-form">

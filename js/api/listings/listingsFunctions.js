@@ -1,4 +1,5 @@
 import { getListings, searchListings } from './get.js'
+import { load } from '../../storage/load.js'
 
 export async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
@@ -6,6 +7,9 @@ export async function fetchAndRenderListings(query = '') {
 
   try {
     const data = query ? await searchListings(query) : await getListings()
+
+    // Sort the listings by created date in descending order
+    data.data.sort((a, b) => new Date(b.created) - new Date(a.created))
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -92,7 +96,7 @@ function createListing(listing) {
   deadlineTwo.textContent = new Date(listing.endsAt).toLocaleString()
 
   const link = document.createElement('a')
-  link.href = `/listings/${listing.id}`
+  link.href = `../../../listings/listing.html?id=${listing.id}`
   link.className = 'btn btn-primary mt-auto'
   link.textContent = 'See more'
 
@@ -125,22 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navbarToggler.classList.remove('show')
     }
   })
-
-  // Function to set the profile avatar
-  const setProfileAvatar = () => {
-    const profileAvatar = document.getElementById('profile-avatar')
-    const userLoggedIn = false // Default to user not logged in
-    const userAvatarUrl = '/path/to/avatar.jpg' // Replace with the actual user avatar URL
-
-    if (userLoggedIn) {
-      profileAvatar.src = userAvatarUrl
-    } else {
-      profileAvatar.src = '/img/questionmark.png'
-    }
-    profileAvatar.classList.remove('d-none') // Make the avatar visible
-  }
-
-  setProfileAvatar()
 
   const goBackButton = document.getElementById('go-back-button')
   goBackButton.addEventListener('click', () => {

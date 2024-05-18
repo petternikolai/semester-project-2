@@ -1,5 +1,5 @@
 import { save } from '../../storage/save.js'
-import { API_AUTH, API_BASE, API_LOGIN } from '../constants.js'
+import { API_AUTH, API_BASE, API_LOGIN, API_PROFILE } from '../constants.js'
 import { authFetch } from '../fetch.js'
 
 /**
@@ -18,23 +18,51 @@ export async function login(email, password) {
   if (response.ok) {
     const { accessToken, ...profile } = (await response.json()).data
     save('token', accessToken)
-    save('profileData', profile)
-    return profile
+
+    // Fetch the complete profile data
+    const profileResponse = await authFetch(
+      `${API_BASE}${API_PROFILE}/${profile.name}`
+    )
+    if (profileResponse.ok) {
+      const completeProfile = await profileResponse.json()
+      save('profile', completeProfile) // Save the complete profile data
+      return completeProfile
+    } else {
+      throw new Error('Could not fetch complete profile data')
+    }
   }
 
-  throw new Error('Could not login the account')
+  throw new Error('Could not log in the account')
 }
 
-var element = document.getElementById('back-link')
-
-element.setAttribute('href', document.referrer)
-
-element.onclick = function () {
-  history.back()
-  return false
-}
+const loadingScreen = document.getElementById('loading-screen')
+loadingScreen.style.display = 'flex' // Show the loading screen
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadingScreen.style.display = 'none'
+  const loginForm = document.getElementById('login-form')
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault()
+
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+
+    try {
+      const profile = await login(email, password)
+      window.location.href = '/index.html' // Redirect on successful login
+    } catch (error) {
+      console.error('Login failed:', error)
+      alert('Login failed. Please check your credentials and try again.')
+    }
+  })
+
+  const element = document.getElementById('back-link')
+  element.setAttribute('href', document.referrer)
+  element.onclick = function () {
+    history.back()
+    return false
+  }
+
   const header = document.querySelector('header')
   const root = document.documentElement
 
