@@ -30,7 +30,7 @@ export async function fetchProfile(profileName) {
  */
 export async function fetchUserListings(username) {
   const response = await authFetch(
-    `${API_BASE}${API_PROFILE}/${username}/listings`
+    `${API_BASE}${API_PROFILE}/${username}/listings?_bids=true`
   )
 
   if (response.ok) {
@@ -45,6 +45,7 @@ export async function fetchUserListings(username) {
  * Updates the user's avatar URL.
  * @param {string} profileName - The name of the profile to update.
  * @param {string} avatarUrl - The new avatar URL.
+ * @param {string} avatarAlt - The new avatar alt text.
  * @returns {Promise<void>}
  */
 async function updateAvatar(profileName, avatarUrl, avatarAlt) {
@@ -125,6 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const listingsContainer = document.createElement('div')
     listingsContainer.className = 'row gap-2 mt-2 mx-2'
     const listingsSection = document.querySelector('section')
+    const listingsHeader = document.querySelector('h2.text-center')
 
     userListings.forEach((listing) => {
       const col = document.createElement('div')
@@ -143,9 +145,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       img.alt = media.alt
       img.className = 'listing-img img-fluid'
 
+      // Find the most recent bid amount
       const currentBidAmount =
         listing.bids && listing.bids.length > 0
-          ? listing.bids[listing.bids.length - 1].amount
+          ? Math.max(...listing.bids.map((bid) => bid.amount))
           : 'No bids'
 
       const bid = document.createElement('p')
@@ -175,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       listingsContainer.appendChild(col)
     })
 
-    listingsSection.appendChild(listingsContainer)
+    listingsSection.insertBefore(listingsContainer, listingsHeader.nextSibling)
   } catch (error) {
     console.error('Error fetching user listings:', error)
     const listingsSection = document.querySelector('section')

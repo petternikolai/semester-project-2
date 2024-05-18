@@ -59,7 +59,9 @@
                 ></li
               >
               <li class="nav-item"
-                ><a class="logged-in nav-link d-none" href="#"
+                ><a
+                  class="logged-in nav-link d-none"
+                  href="/listings/list-item.html"
                   >List an item</a
                 ></li
               >
@@ -89,8 +91,8 @@
       </nav>
     </header>
 
-    <section class="mx-2">
-      <h1 class="text-center mt-2">Listings</h1>
+    <section class="mx-2 mb-2 overflow-x-hidden">
+      <h1 class="text-center mt-3">Listings</h1>
       <button id="go-back-button" class="btn btn-outline-secondary d-none">
         <i class="fas fa-arrow-left"></i> Go Back
       </button>
@@ -98,6 +100,30 @@
         <!-- Listings will be inserted here by JavaScript -->
       </div>
     </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">
+        <p>&copy; 2024 Hammerdrop. All rights reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"
+            ><a href="/footer/privacy.html" class="text-white"
+              >Privacy Policy</a
+            ></li
+          >
+          <li class="list-inline-item"
+            ><a href="/footer/terms.html" class="text-white"
+              >Terms of Service</a
+            ></li
+          >
+          <li class="list-inline-item"
+            ><a href="/footer/contact.html" class="text-white"
+              >Contact Us</a
+            ></li
+          >
+        </ul>
+      </div>
+    </footer>
+
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
   </body>
 </html>

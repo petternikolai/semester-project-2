@@ -96,9 +96,19 @@ function createListing(listing) {
   deadlineTwo.textContent = new Date(listing.endsAt).toLocaleString()
 
   const link = document.createElement('a')
-  link.href = `../../../listings/listing.html?id=${listing.id}`
+  link.href = '#'
   link.className = 'btn btn-primary mt-auto'
   link.textContent = 'See more'
+  link.addEventListener('click', (event) => {
+    event.preventDefault()
+    const profileData = load('profile')
+    if (profileData) {
+      window.location.href = `../../../listings/listing.html?id=${listing.id}`
+    } else {
+      alert('You need to be logged in to see more details.')
+      window.location.href = '/login/login.html'
+    }
+  })
 
   col.appendChild(title)
   col.appendChild(img)

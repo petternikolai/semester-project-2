@@ -89,3 +89,23 @@ section {
 #avatarModal {
   top: 100px;
 }
+
+footer {
+  flex: 0 0 auto;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+footer .list-inline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .list-inline-item {
+  display: inline;
+  margin: 0 10px;
+}
