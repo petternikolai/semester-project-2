@@ -40,7 +40,8 @@ export async function fetchAndRenderListings(query = '') {
           const imgLoadPromise = new Promise((resolve, reject) => {
             img.onload = resolve
             img.onerror = () => {
-              img.src = '../../../img/placeholder.jpeg'
+              img.src =
+                'https://petternikolai.github.io/semester-project-2/img/placeholder.jpeg'
               resolve()
             }
           })
@@ -77,7 +78,10 @@ function createListing(listing) {
   const media =
     listing.media && listing.media.length > 0
       ? listing.media[0]
-      : { url: '../../../img/placeholder.jpeg', alt: 'placeholder' }
+      : {
+          url: 'https://petternikolai.github.io/semester-project-2/img/placeholder.jpeg',
+          alt: 'placeholder',
+        }
   img.src = media.url
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
