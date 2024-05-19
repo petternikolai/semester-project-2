@@ -1,15 +1,13 @@
-import { API_BASE, API_LISTINGS } from '../constants.js'
-import { authFetch } from '../fetch.js'
+import { getListings, searchListings } from './get.js'
 import { load } from '../../storage/load.js'
 
-// Function to fetch all listings with pagination
 async function fetchAllListings(query = '') {
   let allListings = []
   let page = 1
-  let totalPages = 1
+  let totalPages
 
   do {
-    const response = await authFetch(
+    const response = await fetch(
       `${API_BASE}${API_LISTINGS}?_page=${page}&_limit=100${query ? `&q=${query}` : ''}`
     )
     if (!response.ok) throw new Error('Failed to fetch listings')
@@ -23,8 +21,7 @@ async function fetchAllListings(query = '') {
   return allListings
 }
 
-// Function to render listings
-export async function fetchAndRenderListings(query = '') {
+async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
   loadingScreen.style.display = 'flex' // Show the loading screen
 
@@ -75,7 +72,6 @@ export async function fetchAndRenderListings(query = '') {
     await Promise.all(imagePromises)
     loadingScreen.style.display = 'none'
 
-    // Show or hide the "Go Back" button
     const goBackButton = document.getElementById('go-back-button')
     if (query) {
       goBackButton.classList.remove('d-none')
@@ -91,7 +87,7 @@ export async function fetchAndRenderListings(query = '') {
 function createListing(listing) {
   const col = document.createElement('div')
   col.className =
-    'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
+    'col-12 col-md-6 col-lg-6 p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
 
   const title = document.createElement('h3')
   title.textContent = listing.title
@@ -105,7 +101,6 @@ function createListing(listing) {
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
 
-  // Find the most recent bid amount
   const currentBidAmount =
     listing.bids && listing.bids.length > 0
       ? listing.bids[listing.bids.length - 1].amount
@@ -158,10 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = searchInput.value.trim()
     fetchAndRenderListings(query)
 
-    // Clear the search input field
     searchInput.value = ''
 
-    // Close the navbar collapse after search
     const navbarToggler = document.getElementById('navbarTogglerDemo02')
     if (navbarToggler.classList.contains('show')) {
       navbarToggler.classList.remove('show')
