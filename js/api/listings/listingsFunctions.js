@@ -70,7 +70,7 @@ function createListing(listing) {
   col.className =
     'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
 
-  const title = document.createElement('h3')
+  const title = document.createElement('h2')
   title.textContent = listing.title
 
   const img = document.createElement('img')
