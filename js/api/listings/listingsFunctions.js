@@ -1,15 +1,19 @@
-import { getListings, searchListings } from './get.js'
+import { API_BASE, API_LISTINGS } from '../constants.js'
+import { authFetch } from '../fetch.js'
 import { load } from '../../storage/load.js'
 
+// Function to fetch all listings with pagination
 async function fetchAllListings(query = '') {
   let allListings = []
   let page = 1
   let totalPages = 1
 
   do {
-    const data = query
-      ? await searchListings(query, page)
-      : await getListings(page)
+    const response = await authFetch(
+      `${API_BASE}${API_LISTINGS}?_page=${page}&_limit=100${query ? `&q=${query}` : ''}`
+    )
+    const data = await response.json()
+
     allListings = allListings.concat(data.data)
     totalPages = data.meta.pageCount
     page++
@@ -18,17 +22,16 @@ async function fetchAllListings(query = '') {
   return allListings
 }
 
+// Function to render listings
 export async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
   loadingScreen.style.display = 'flex' // Show the loading screen
 
   try {
     const allListings = await fetchAllListings(query)
-    console.log('Fetched all listings data:', allListings)
 
     // Sort the listings by created date in descending order
     allListings.sort((a, b) => new Date(b.created) - new Date(a.created))
-    console.log('Sorted listings data:', allListings)
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -38,7 +41,6 @@ export async function fetchAndRenderListings(query = '') {
     }
 
     listingContainer.innerHTML = '' // Clear existing listings
-    let row
     const imagePromises = []
 
     if (allListings.length === 0) {
@@ -47,11 +49,12 @@ export async function fetchAndRenderListings(query = '') {
     } else {
       allListings.forEach((listing, index) => {
         if (index % 2 === 0) {
-          row = document.createElement('div')
+          const row = document.createElement('div')
           row.className = 'row gap-2 mt-2'
           listingContainer.appendChild(row)
         }
         const col = createListing(listing)
+        const row = listingContainer.lastElementChild
         row.appendChild(col)
 
         const img = col.querySelector('img')
@@ -101,7 +104,6 @@ function createListing(listing) {
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
 
-  // Find the most recent bid amount
   const currentBidAmount =
     listing.bids && listing.bids.length > 0
       ? listing.bids[listing.bids.length - 1].amount
@@ -154,10 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = searchInput.value.trim()
     fetchAndRenderListings(query)
 
-    // Clear the search input field
     searchInput.value = ''
 
-    // Close the navbar collapse after search
     const navbarToggler = document.getElementById('navbarTogglerDemo02')
     if (navbarToggler.classList.contains('show')) {
       navbarToggler.classList.remove('show')
