@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const userListings = await fetchUserListings(profileData.data.name)
     const listingsContainer = document.createElement('div')
-    listingsContainer.className = 'row gap-2 mt-2 mx-2'
+    listingsContainer.className = 'container'
     const listingsSection = document.querySelector('section')
     const listingsHeader = document.querySelector('h2.text-center')
 
@@ -132,9 +132,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       listingsContainer.innerHTML =
         '<p class="text-center">No listings found...</p>'
     } else {
+      let row
       userListings.forEach((listing, index) => {
         if (index % 2 === 0) {
-          const row = document.createElement('div')
+          row = document.createElement('div')
           row.className = 'row gap-2 mt-2'
           listingsContainer.appendChild(row)
         }
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         col.appendChild(deadlineTwo)
         col.appendChild(link)
 
-        listingsContainer.appendChild(col)
+        row.appendChild(col)
       })
     }
 
