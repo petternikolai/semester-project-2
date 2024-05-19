@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render listing details
     listingDetailsContainer.innerHTML = `
           <h1 class='text-center'>${title}</h1>
+          <div class='bg-body-secondary p-3'>
       <img src="${media.length > 0 ? media[0].url : '/semester-project-2/img/placeholder.jpeg'}" alt="${media.length > 0 ? media[0].alt : 'placeholder'}" class="img-fluid">
       <p class='mt-3'>${description}</p>
       <p>Ends at: ${new Date(endsAt).toLocaleString()}</p>
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       <h2 class='mt-4'>Bid History</h2>
       <ul id='bid-history' class='list-group mb-2'></ul>
+      </div>
     `
 
     // Populate the bid history
