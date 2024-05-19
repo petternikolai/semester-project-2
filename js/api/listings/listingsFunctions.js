@@ -1,18 +1,34 @@
 import { getListings, searchListings } from './get.js'
 import { load } from '../../storage/load.js'
 
+async function fetchAllListings(query = '') {
+  let allListings = []
+  let page = 1
+  let totalPages = 1
+
+  while (page <= totalPages) {
+    const data = query
+      ? await searchListings(query, page)
+      : await getListings(page)
+    allListings = allListings.concat(data.data)
+    totalPages = data.meta.pageCount
+    page++
+  }
+
+  return allListings
+}
+
 export async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
   loadingScreen.style.display = 'flex' // Show the loading screen
 
   try {
-    const data = query ? await searchListings(query) : await getListings()
-
-    console.log('Fetched listings data:', data)
+    const allListings = await fetchAllListings(query)
+    console.log('Fetched all listings data:', allListings)
 
     // Sort the listings by created date in descending order
-    data.data.sort((a, b) => new Date(b.created) - new Date(a.created))
-    console.log('Sorted listings data:', data)
+    allListings.sort((a, b) => new Date(b.created) - new Date(a.created))
+    console.log('Sorted listings data:', allListings)
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -25,11 +41,11 @@ export async function fetchAndRenderListings(query = '') {
     let row
     const imagePromises = []
 
-    if (data.data.length === 0) {
+    if (allListings.length === 0) {
       listingContainer.innerHTML =
         '<p class="text-center">No listings found...</p>'
     } else {
-      data.data.forEach((listing, index) => {
+      allListings.forEach((listing, index) => {
         if (index % 2 === 0) {
           row = document.createElement('div')
           row.className = 'row gap-2 mt-2'
