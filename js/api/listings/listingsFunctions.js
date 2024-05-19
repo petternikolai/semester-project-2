@@ -6,14 +6,14 @@ async function fetchAllListings(query = '') {
   let page = 1
   let totalPages = 1
 
-  while (page <= totalPages) {
+  do {
     const data = query
       ? await searchListings(query, page)
       : await getListings(page)
     allListings = allListings.concat(data.data)
     totalPages = data.meta.pageCount
     page++
-  }
+  } while (page <= totalPages)
 
   return allListings
 }
