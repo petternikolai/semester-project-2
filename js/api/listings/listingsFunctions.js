@@ -22,27 +22,32 @@ export async function fetchAndRenderListings(query = '') {
     let row
     const imagePromises = []
 
-    data.data.forEach((listing, index) => {
-      if (index % 2 === 0) {
-        row = document.createElement('div')
-        row.className = 'row gap-2 mt-2'
-        listingContainer.appendChild(row)
-      }
-      const col = createListing(listing)
-      row.appendChild(col)
+    if (data.data.length === 0) {
+      listingContainer.innerHTML =
+        '<p class="text-center">No listings found...</p>'
+    } else {
+      data.data.forEach((listing, index) => {
+        if (index % 2 === 0) {
+          row = document.createElement('div')
+          row.className = 'row gap-2 mt-2'
+          listingContainer.appendChild(row)
+        }
+        const col = createListing(listing)
+        row.appendChild(col)
 
-      const img = col.querySelector('img')
-      if (img) {
-        const imgLoadPromise = new Promise((resolve, reject) => {
-          img.onload = resolve
-          img.onerror = () => {
-            img.src = '/img/placeholder.jpeg'
-            resolve()
-          }
-        })
-        imagePromises.push(imgLoadPromise)
-      }
-    })
+        const img = col.querySelector('img')
+        if (img) {
+          const imgLoadPromise = new Promise((resolve, reject) => {
+            img.onload = resolve
+            img.onerror = () => {
+              img.src = '/img/placeholder.jpeg'
+              resolve()
+            }
+          })
+          imagePromises.push(imgLoadPromise)
+        }
+      })
+    }
 
     await Promise.all(imagePromises)
     loadingScreen.style.display = 'none'
@@ -63,7 +68,7 @@ export async function fetchAndRenderListings(query = '') {
 function createListing(listing) {
   const col = document.createElement('div')
   col.className =
-    'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between'
+    'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
 
   const title = document.createElement('h3')
   title.textContent = listing.title

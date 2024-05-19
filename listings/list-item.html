@@ -85,22 +85,30 @@
       </nav>
     </header>
 
-    <section class="m-2 bg-body-secondary p-2">
+    <section class="m-2 p-2 col-lg-4 mx-lg-auto">
       <h1 class="text-center mt-3">Create a New Listing</h1>
-      <div class="container col-12 col-md-8 col-lg-6">
+      <div class="container bg-body-secondary p-3">
         <form id="create-listing-form">
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" required />
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              minlength="1"
+              maxlength="280"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <textarea
               class="form-control"
               id="description"
-              rows="3"
+              maxlength="280"
               required
             ></textarea>
+            <div id="description-counter">0/280</div>
           </div>
           <div class="mb-3">
             <label for="media" class="form-label">Media URL</label>

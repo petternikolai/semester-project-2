@@ -12,7 +12,7 @@ import { authFetch } from '../fetch.js'
  * @throws {Error} If the request fails or an error occurs during retrieval.
  */
 export async function getListings() {
-  let url = `${API_BASE}${API_LISTINGS}?${API_QUERY_SELLER}&${API_QUERY_BIDS}`
+  let url = `${API_BASE}${API_LISTINGS}?${API_QUERY_SELLER}&${API_QUERY_BIDS}&_active=true`
   const response = await authFetch(url)
   return await response.json()
 }

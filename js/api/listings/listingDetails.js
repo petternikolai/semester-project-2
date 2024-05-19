@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           : ''
       }
       <h2 class='mt-4'>Bid History</h2>
-      <ul id='bid-history' class='list-group'></ul>
+      <ul id='bid-history' class='list-group mb-2'></ul>
     `
 
     // Populate the bid history

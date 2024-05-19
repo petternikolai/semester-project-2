@@ -3,6 +3,13 @@ import { authFetch } from '../fetch.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const createListingForm = document.getElementById('create-listing-form')
+  const descriptionInput = document.getElementById('description')
+  const descriptionCounter = document.getElementById('description-counter')
+
+  descriptionInput.addEventListener('input', () => {
+    const currentLength = descriptionInput.value.length
+    descriptionCounter.textContent = `${currentLength}/280`
+  })
 
   createListingForm.addEventListener('submit', async (event) => {
     event.preventDefault()
