@@ -29,7 +29,7 @@ This is the official repository for Hammerdrop, an online auction website where 
 
 ## Usage
 
-## Authentication
+### Authentication
 
 - **Login**: Navigate to the login page and enter your credentials.
 - **Register**: Create a new account if you don't have one.
@@ -53,7 +53,7 @@ This is the official repository for Hammerdrop, an online auction website where 
 
 ## Development
 
-## Running Locally
+### Running Locally
 
 Ensure you have a local server setup (like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) for VSCode).
 
