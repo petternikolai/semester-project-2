@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const data = await register(name, email, password)
-      window.location.href = '/login/login.html' // Redirect on successful registration
+      window.location.href = '/semester-project-2/login/login.html' // Redirect on successful registration
     } catch (error) {
       console.error('Registration error:', error)
       alert('Registration failed: ' + error.message) // Display an error message

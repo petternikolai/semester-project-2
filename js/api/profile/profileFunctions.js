@@ -140,7 +140,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       const media =
         listing.media && listing.media.length > 0
           ? listing.media[0]
-          : { url: '/img/placeholder.jpeg', alt: 'placeholder' }
+          : {
+              url: '/semester-project-2/img/placeholder.jpeg',
+              alt: 'placeholder',
+            }
       img.src = media.url
       img.alt = media.alt
       img.className = 'listing-img img-fluid'
@@ -164,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       deadlineTwo.textContent = new Date(listing.endsAt).toLocaleString()
 
       const link = document.createElement('a')
-      link.href = `../../../listings/listing.html?id=${listing.id}`
+      link.href = `/semester-project-2/listings/listing.html?id=${listing.id}`
       link.className = 'btn btn-primary mt-auto'
       link.textContent = 'See more'
 

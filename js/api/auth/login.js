@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const profile = await login(email, password)
-      window.location.href = '/index.html' // Redirect on successful login
+      window.location.href = '/semester-project-2/index.html' // Redirect on successful login
     } catch (error) {
       console.error('Login failed:', error)
       alert('Login failed. Please check your credentials and try again.')
