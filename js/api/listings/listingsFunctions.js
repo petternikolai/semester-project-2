@@ -1,15 +1,38 @@
-import { getListings, searchListings } from './get.js'
+import { API_BASE, API_LISTINGS } from '../constants.js'
+import { authFetch } from '../fetch.js'
 import { load } from '../../storage/load.js'
 
+// Function to fetch all listings with pagination
+async function fetchAllListings(query = '') {
+  let allListings = []
+  let page = 1
+  let totalPages = 1
+
+  do {
+    const response = await authFetch(
+      `${API_BASE}${API_LISTINGS}?_page=${page}&_limit=100${query ? `&q=${query}` : ''}`
+    )
+    if (!response.ok) throw new Error('Failed to fetch listings')
+
+    const data = await response.json()
+    allListings = allListings.concat(data.data)
+    totalPages = data.meta.pageCount
+    page++
+  } while (page <= totalPages)
+
+  return allListings
+}
+
+// Function to render listings
 export async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
   loadingScreen.style.display = 'flex' // Show the loading screen
 
   try {
-    const data = query ? await searchListings(query) : await getListings()
+    const allListings = await fetchAllListings(query)
 
     // Sort the listings by created date in descending order
-    data.data.sort((a, b) => new Date(b.created) - new Date(a.created))
+    allListings.sort((a, b) => new Date(b.created) - new Date(a.created))
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -22,11 +45,11 @@ export async function fetchAndRenderListings(query = '') {
     let row
     const imagePromises = []
 
-    if (data.data.length === 0) {
+    if (allListings.length === 0) {
       listingContainer.innerHTML =
         '<p class="text-center">No listings found...</p>'
     } else {
-      data.data.forEach((listing, index) => {
+      allListings.forEach((listing, index) => {
         if (index % 2 === 0) {
           row = document.createElement('div')
           row.className = 'row gap-2 mt-2'
@@ -77,10 +100,7 @@ function createListing(listing) {
   const media =
     listing.media && listing.media.length > 0
       ? listing.media[0]
-      : {
-          url: '/semester-project-2/img/placeholder.jpeg',
-          alt: 'placeholder',
-        }
+      : { url: '/semester-project-2/img/placeholder.jpeg', alt: 'placeholder' }
   img.src = media.url
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
