@@ -1,35 +1,15 @@
-import { API_BASE, API_LISTINGS } from '/semester-project-2/js/api/constants.js'
+import { getListings, searchListings } from './get.js'
 import { load } from '../../storage/load.js'
 
-async function fetchAllListings(query = '') {
-  let allListings = []
-  let page = 1
-  let totalPages
-
-  do {
-    const response = await fetch(
-      `${API_BASE}${API_LISTINGS}?_page=${page}&_limit=100${query ? `&q=${query}` : ''}`
-    )
-    if (!response.ok) throw new Error('Failed to fetch listings')
-
-    const data = await response.json()
-    allListings = allListings.concat(data.data)
-    totalPages = data.meta.pageCount
-    page++
-  } while (page <= totalPages)
-
-  return allListings
-}
-
-async function fetchAndRenderListings(query = '') {
+export async function fetchAndRenderListings(query = '') {
   const loadingScreen = document.getElementById('loading-screen')
   loadingScreen.style.display = 'flex' // Show the loading screen
 
   try {
-    const allListings = await fetchAllListings(query)
+    const data = query ? await searchListings(query) : await getListings()
 
     // Sort the listings by created date in descending order
-    allListings.sort((a, b) => new Date(b.created) - new Date(a.created))
+    data.data.sort((a, b) => new Date(b.created) - new Date(a.created))
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -42,11 +22,11 @@ async function fetchAndRenderListings(query = '') {
     let row
     const imagePromises = []
 
-    if (allListings.length === 0) {
+    if (data.data.length === 0) {
       listingContainer.innerHTML =
         '<p class="text-center">No listings found...</p>'
     } else {
-      allListings.forEach((listing, index) => {
+      data.data.forEach((listing, index) => {
         if (index % 2 === 0) {
           row = document.createElement('div')
           row.className = 'row gap-2 mt-2'
@@ -72,6 +52,7 @@ async function fetchAndRenderListings(query = '') {
     await Promise.all(imagePromises)
     loadingScreen.style.display = 'none'
 
+    // Show or hide the "Go Back" button
     const goBackButton = document.getElementById('go-back-button')
     if (query) {
       goBackButton.classList.remove('d-none')
@@ -87,7 +68,7 @@ async function fetchAndRenderListings(query = '') {
 function createListing(listing) {
   const col = document.createElement('div')
   col.className =
-    'col-12 col-md-6 col-lg-6 p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
+    'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between overflow-x-hidden'
 
   const title = document.createElement('h3')
   title.textContent = listing.title
@@ -96,11 +77,15 @@ function createListing(listing) {
   const media =
     listing.media && listing.media.length > 0
       ? listing.media[0]
-      : { url: '/semester-project-2/img/placeholder.jpeg', alt: 'placeholder' }
+      : {
+          url: '/semester-project-2/img/placeholder.jpeg',
+          alt: 'placeholder',
+        }
   img.src = media.url
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
 
+  // Find the most recent bid amount
   const currentBidAmount =
     listing.bids && listing.bids.length > 0
       ? listing.bids[listing.bids.length - 1].amount
@@ -153,8 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = searchInput.value.trim()
     fetchAndRenderListings(query)
 
+    // Clear the search input field
     searchInput.value = ''
 
+    // Close the navbar collapse after search
     const navbarToggler = document.getElementById('navbarTogglerDemo02')
     if (navbarToggler.classList.contains('show')) {
       navbarToggler.classList.remove('show')
