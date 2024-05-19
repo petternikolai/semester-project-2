@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const listing = await response.json()
       alert('Listing created successfully!')
-      window.location.href = `listing.html?id=${listing.id}` // Redirect to the newly created listing
+      window.location.href = `/semester-project-2/listings/listing.html?id=${listing.id}` // Redirect to the newly created listing
     } catch (error) {
       console.error('Error creating listing:', error)
       alert('Error creating listing. Please try again.')
