@@ -1,4 +1,4 @@
-import { getListings, searchListings } from './get.js'
+import { API_BASE, API_LISTINGS } from '../../constants/api.js'
 import { load } from '../../storage/load.js'
 
 async function fetchAllListings(query = '') {
