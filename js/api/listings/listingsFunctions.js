@@ -115,7 +115,7 @@ function createListing(listing) {
       window.location.href = `../../../listings/listing.html?id=${listing.id}`
     } else {
       alert('You need to be logged in to see more details.')
-      window.location.href = '/login/login.html'
+      window.location.href = '../../../login/login.html'
     }
   })
 
