@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render listing details
     listingDetailsContainer.innerHTML = `
           <h1 class='text-center'>${title}</h1>
-      <img src="${media.length > 0 ? media[0].url : './img/placeholder.jpeg'}" alt="${media.length > 0 ? media[0].alt : 'placeholder'}" class="img-fluid">
+      <img src="${media.length > 0 ? media[0].url : '../../../img/placeholder.jpeg'}" alt="${media.length > 0 ? media[0].alt : 'placeholder'}" class="img-fluid">
       <p class='mt-3'>${description}</p>
       <p>Ends at: ${new Date(endsAt).toLocaleString()}</p>
       <p>Bids: ${_count.bids}</p>
