@@ -128,58 +128,69 @@ document.addEventListener('DOMContentLoaded', async () => {
     const listingsSection = document.querySelector('section')
     const listingsHeader = document.querySelector('h2.text-center')
 
-    userListings.forEach((listing) => {
-      const col = document.createElement('div')
-      col.className =
-        'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between'
+    if (userListings.length === 0) {
+      listingsContainer.innerHTML =
+        '<p class="text-center">No listings found...</p>'
+    } else {
+      userListings.forEach((listing, index) => {
+        if (index % 2 === 0) {
+          const row = document.createElement('div')
+          row.className = 'row gap-2 mt-2'
+          listingsContainer.appendChild(row)
+        }
 
-      const title = document.createElement('h3')
-      title.textContent = listing.title
+        const col = document.createElement('div')
+        col.className =
+          'col-12 col-md-6 col-lg-6 p-3 bg-body-secondary text-center d-flex flex-column justify-content-between'
 
-      const img = document.createElement('img')
-      const media =
-        listing.media && listing.media.length > 0
-          ? listing.media[0]
-          : {
-              url: '/semester-project-2/img/placeholder.jpeg',
-              alt: 'placeholder',
-            }
-      img.src = media.url
-      img.alt = media.alt
-      img.className = 'listing-img img-fluid'
+        const title = document.createElement('h3')
+        title.textContent = listing.title
 
-      // Find the most recent bid amount
-      const currentBidAmount =
-        listing.bids && listing.bids.length > 0
-          ? Math.max(...listing.bids.map((bid) => bid.amount))
-          : 'No bids'
+        const img = document.createElement('img')
+        const media =
+          listing.media && listing.media.length > 0
+            ? listing.media[0]
+            : {
+                url: '/semester-project-2/img/placeholder.jpeg',
+                alt: 'placeholder',
+              }
+        img.src = media.url
+        img.alt = media.alt
+        img.className = 'listing-img img-fluid'
 
-      const bid = document.createElement('p')
-      bid.className = 'mb-0 mt-2 text-start'
-      bid.textContent = `Current bid: ${currentBidAmount}`
+        // Find the most recent bid amount
+        const currentBidAmount =
+          listing.bids && listing.bids.length > 0
+            ? Math.max(...listing.bids.map((bid) => bid.amount))
+            : 'No bids'
 
-      const deadline = document.createElement('p')
-      deadline.className = 'text-start mb-0'
-      deadline.textContent = 'Deadline:'
+        const bid = document.createElement('p')
+        bid.className = 'mb-0 mt-2 text-start'
+        bid.textContent = `Current bid: ${currentBidAmount}`
 
-      const deadlineTwo = document.createElement('p')
-      deadlineTwo.className = 'text-start'
-      deadlineTwo.textContent = new Date(listing.endsAt).toLocaleString()
+        const deadline = document.createElement('p')
+        deadline.className = 'text-start mb-0'
+        deadline.textContent = 'Deadline:'
 
-      const link = document.createElement('a')
-      link.href = `/semester-project-2/listings/listing.html?id=${listing.id}`
-      link.className = 'btn btn-primary mt-auto'
-      link.textContent = 'See more'
+        const deadlineTwo = document.createElement('p')
+        deadlineTwo.className = 'text-start'
+        deadlineTwo.textContent = new Date(listing.endsAt).toLocaleString()
 
-      col.appendChild(title)
-      col.appendChild(img)
-      col.appendChild(bid)
-      col.appendChild(deadline)
-      col.appendChild(deadlineTwo)
-      col.appendChild(link)
+        const link = document.createElement('a')
+        link.href = `/semester-project-2/listings/listing.html?id=${listing.id}`
+        link.className = 'btn btn-primary mt-auto'
+        link.textContent = 'See more'
 
-      listingsContainer.appendChild(col)
-    })
+        col.appendChild(title)
+        col.appendChild(img)
+        col.appendChild(bid)
+        col.appendChild(deadline)
+        col.appendChild(deadlineTwo)
+        col.appendChild(link)
+
+        listingsContainer.appendChild(col)
+      })
+    }
 
     listingsSection.insertBefore(listingsContainer, listingsHeader.nextSibling)
   } catch (error) {
