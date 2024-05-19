@@ -8,8 +8,11 @@ export async function fetchAndRenderListings(query = '') {
   try {
     const data = query ? await searchListings(query) : await getListings()
 
+    console.log('Fetched listings data:', data)
+
     // Sort the listings by created date in descending order
     data.data.sort((a, b) => new Date(b.created) - new Date(a.created))
+    console.log('Sorted listings data:', data)
 
     const listingContainer = document.getElementById('listing-container')
 
@@ -77,10 +80,7 @@ function createListing(listing) {
   const media =
     listing.media && listing.media.length > 0
       ? listing.media[0]
-      : {
-          url: '/semester-project-2/img/placeholder.jpeg',
-          alt: 'placeholder',
-        }
+      : { url: '/semester-project-2/img/placeholder.jpeg', alt: 'placeholder' }
   img.src = media.url
   img.alt = media.alt
   img.className = 'listing-img img-fluid'
