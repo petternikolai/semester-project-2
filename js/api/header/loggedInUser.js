@@ -12,7 +12,7 @@ const setProfileAvatar = () => {
 
   const profileLink = profileAvatar.querySelector('a')
   if (profileData && profileData.data.avatar && profileData.data.avatar.url) {
-    profileLink.href = 'semester-project-2/profile/profile.html' // Set link to profile page
+    profileLink.href = '/semester-project-2/profile/profile.html' // Set link to profile page
     // Remove existing icon classes
     iconElement.className = ''
     // Add image tag inside the anchor tag
@@ -22,7 +22,7 @@ const setProfileAvatar = () => {
     img.className = 'rounded-circle'
     profileLink.appendChild(img)
   } else {
-    profileLink.href = 'semester-project-2/login/login.html' // Set link to login page
+    profileLink.href = '/semester-project-2/login/login.html' // Set link to login page
   }
   profileAvatar.classList.remove('d-none') // Make the avatar visible
 }
@@ -49,7 +49,7 @@ const logout = () => {
   document.getElementById('logout').addEventListener('click', () => {
     localStorage.removeItem('token')
     localStorage.removeItem('profile')
-    window.location.href = 'semester-project-2/index.html'
+    window.location.href = '/semester-project-2/index.html'
   })
 }
 
