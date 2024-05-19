@@ -1,4 +1,4 @@
-import { API_BASE, API_LISTINGS } from '../../constants/api.js'
+import { API_BASE, API_LISTINGS } from '/semester-project-2/js/api/constants.js'
 import { load } from '../../storage/load.js'
 
 async function fetchAllListings(query = '') {
