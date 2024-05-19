@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Petter-Nikolai Kristoffersen" />
+    <meta name="description" content="The log in page of Hammerdrop" />
+    <link rel="stylesheet" href="/styles/css/style.css" />
+    <link rel="icon" href="../img/favicon.png" />
+    <title>Hammerdrop</title>
+    <script type="module" src="/js/api/auth/register.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/c4acae2378.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="loading-screen">Loading...</div>
+    <!-- Loading screen element -->
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark">
+        <div
+          class="container-fluid d-flex justify-content-between align-items-center"
+        >
+          <a class="navbar-brand" href="#"
+            ><img src="/img/logo.svg" alt="Logo"
+          /></a>
+          <div class="d-flex align-items-center">
+            <div id="profile-avatar" class="default-avatar d-none bg-primary">
+              <a href="/profile/profile.html" class="text-black">
+                <i class="fa-light fa-user"></i>
+              </a>
+            </div>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarTogglerDemo02"
+              aria-controls="navbarTogglerDemo02"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item"
+                ><a class="nav-link" aria-current="page" href="../index.html"
+                  >Home</a
+                ></li
+              >
+              <li class="nav-item"
+                ><a class="nav-link d-none" href="#">List an item</a></li
+              >
+              <li class="nav-item"
+                ><a class="nav-link text-danger d-none" href="#">Log out</a></li
+              >
+            </ul>
+            <form class="d-flex" role="search" id="search-form">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                id="search-input"
+              />
+              <button class="btn btn-outline-primary" type="submit"
+                >Search</button
+              >
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="d-flex justify-content-center col-lg-4 mx-lg-auto">
+      <div class="container-fluid">
+        <a id="back-link"
+          ><i class="fa-light fa-arrow-left fs-1 my-5 text-white"></i
+        ></a>
+        <div class="col">
+          <h1 class="text-center">Register</h1>
+          <div
+            class="d-flex flex-column align-items-center justify-content-center"
+          >
+            <form name="auth" class="auth-form col-12">
+              <div class="mb-3">
+                <label for="name" class="form-label ps-1">Username</label>
+                <input
+                  name="name"
+                  pattern="^[\w]+$"
+                  type="text"
+                  class="form-control"
+                  aria-label="First-name"
+                  required
+                  autofocus="1"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label ps-1">Email</label>
+                <input
+                  name="email"
+                  pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+                  type="text"
+                  class="form-control"
+                  aria-label="Mobile number or email"
+                  required
+                  title='Please enter a valid email address in the format "example@stud.noroff.no"'
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label ps-1">Password</label>
+                <input
+                  name="password"
+                  type="password"
+                  pattern=".{8,}"
+                  required
+                  title="Password must have a minimum length of 8 characters!"
+                  class="form-control"
+                  aria-label="New password"
+                  id="newpassword"
+                />
+                <div id="newpassword" class="form-text"
+                  >Password must have a minimum length of 8 characters.
+                </div>
+              </div>
+              <button type="submit" class="col-12 btn btn-primary mb-1"
+                >Sign Up</button
+              >
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  </body>
+</html>

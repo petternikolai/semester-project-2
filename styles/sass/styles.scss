@@ -1,0 +1,111 @@
+.navbar-brand img {
+  width: 60px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(13, 13, 13, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  color: #fff;
+}
+
+.default-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  margin-left: 1rem;
+}
+
+.listing-img {
+  max-height: 150px;
+}
+
+header {
+  height: 75px;
+}
+
+section {
+  min-height: calc(100vh - var(--header-height));
+}
+
+:root {
+  --header-height: 70px;
+}
+
+#profile-avatar img {
+  width: 35px;
+}
+
+.profile-container img {
+  width: 200px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.camera-icon-wrapper {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #a68a56;
+  color: black;
+  right: -200px;
+  top: 50px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.camera-icon-wrapper i {
+  font-size: 20px;
+}
+
+#avatarModal {
+  top: 100px;
+}
+
+footer {
+  flex: 0 0 auto;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+footer .list-inline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .list-inline-item {
+  display: inline;
+  margin: 0 10px;
+}

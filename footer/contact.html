@@ -3,34 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Petter-Nikolai Kristoffersen" />
-    <meta
-      name="description"
-      content="The home page of Hammerdrop - an online auction website"
-    />
-    <link rel="stylesheet" href="/styles/css/style.css" />
-    <link rel="icon" href="img/favicon.png" />
-    <title>Hammerdrop</title>
-    <script
-      type="module"
-      src="/js/api/listings/listingsFunctions.js"
-      defer
-    ></script>
     <script type="module" src="/js/api/header/loggedInUser.js" defer></script>
     <script
       src="https://kit.fontawesome.com/c4acae2378.js"
       crossorigin="anonymous"
     ></script>
+    <title>Contact Us - Hammerdrop</title>
+    <link rel="stylesheet" href="/styles/css/style.css" />
   </head>
   <body>
-    <div id="loading-screen">Loading...</div>
-    <!-- Loading screen element -->
     <header>
       <nav class="navbar navbar-expand-lg bg-dark">
         <div
           class="container-fluid d-flex justify-content-between align-items-center"
         >
-          <a class="navbar-brand" href="#"
+          <a class="navbar-brand" href="../index.html"
             ><img src="/img/logo.svg" alt="Logo"
           /></a>
           <div class="d-flex align-items-center">
@@ -54,7 +41,7 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item"
-                ><a class="nav-link active" aria-current="page" href="#"
+                ><a class="nav-link" aria-current="page" href="../index.html"
                   >Home</a
                 ></li
               >
@@ -91,14 +78,24 @@
       </nav>
     </header>
 
-    <section class="mx-2 mb-2 col-lg-4 mx-lg-auto overflow-x-hidden">
-      <h1 class="text-center mt-3">Listings</h1>
-      <button id="go-back-button" class="btn btn-outline-secondary d-none">
-        <i class="fas fa-arrow-left"></i> Go Back
-      </button>
-      <div class="container-fluid" id="listing-container" class="row gap-2">
-        <!-- Listings will be inserted here by JavaScript -->
-      </div>
+    <section class="container mt-3 col-lg-4">
+      <h1 class="text-center">Contact Us</h1>
+      <p
+        >If you have any questions, concerns, or feedback, please reach out to
+        us. We are here to help!</p
+      >
+      <h2>Email</h2>
+      <p
+        >You can email us at
+        <a href="mailto:support@hammerdrop.com">support@hammerdrop.com</a>.</p
+      >
+      <h2>Social Media</h2>
+      <p>Follow us on our social media channels for the latest updates:</p>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
     </section>
 
     <footer class="bg-dark text-white text-center py-3">
@@ -106,19 +103,13 @@
         <p>&copy; 2024 Hammerdrop. All rights reserved.</p>
         <ul class="list-inline">
           <li class="list-inline-item"
-            ><a href="/footer/privacy.html" class="text-white"
-              >Privacy Policy</a
-            ></li
+            ><a href="privacy.html" class="text-white">Privacy Policy</a></li
           >
           <li class="list-inline-item"
-            ><a href="/footer/terms.html" class="text-white"
-              >Terms of Service</a
-            ></li
+            ><a href="terms.html" class="text-white">Terms of Use</a></li
           >
           <li class="list-inline-item"
-            ><a href="/footer/contact.html" class="text-white"
-              >Contact Us</a
-            ></li
+            ><a href="contact.html" class="text-white">Contact Us</a></li
           >
         </ul>
       </div>
