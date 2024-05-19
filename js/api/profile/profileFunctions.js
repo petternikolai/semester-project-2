@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const col = document.createElement('div')
         col.className =
-          'col-12 col-md-6 col-lg-6 p-3 bg-body-secondary text-center d-flex flex-column justify-content-between'
+          'col p-3 bg-body-secondary text-center d-flex flex-column justify-content-between'
 
         const title = document.createElement('h3')
         title.textContent = listing.title
